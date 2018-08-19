@@ -37,13 +37,25 @@ class KontakController extends Controller
     */
    public function store(Request $request)
    {
-       $data = new ModelKontak();
+	    //$data = new ModelKontak();
+		request()->validate([
+            'nama' => 'required',
+            'email' => 'required',
+			'nohp' => 'required',
+			'alamat' => 'required'
+        ]);
+		ModelKontak::create($request->all());
+		//dd($data);
+		//$data->save();
+        return redirect()->route('kontak.index')
+                        ->with('success','Product created successfully.');
+       /*$data = new ModelKontak();
        $data->nama = $request->nama;
        $data->email = $request->email;
        $data->nohp = $request->nohp;
        $data->alamat = $request->alamat;
        $data->save();
-       return redirect()->route('kontak.index')->with('alert-success','Berhasil Menambahkan Data!');
+       return redirect()->route('kontak.index')->with('alert-success','Berhasil Menambahkan Data!');*/
 }
 
     /**
